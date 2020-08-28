@@ -16,17 +16,20 @@ class IntInformation:
 
     def seal_button(self):
         self.seals += self.click
-        seals_display.configure(text="You have: " + str(intinfo.seals) + " seals")
+        seals_display.configure(
+            text="You have: " + str(intinfo.seals) + " seals")
 
 
 seal_image = ImageTk.PhotoImage(Image.open("seal.png"))
 
 intinfo = IntInformation()
 
-seals_display = Label(root, text="You have: " + str(intinfo.seals) + " seals", font=("Everson Mono", 20))
+seals_display = Label(root, text="You have: " +
+                      str(intinfo.seals) + " seals", font=("Everson Mono", 20))
 seals_display.place(relx=0.1, rely=0.1)
 
-button_start = Button(root, text="Seal", command=intinfo.seal_button, image=seal_image)
+button_start = Button(
+    root, text="Seal", command=intinfo.seal_button, image=seal_image)
 button_start.place(relheight=0.6, relwidth=0.4, relx=0.1, rely=0.3)
 
 root.geometry("800x800")
