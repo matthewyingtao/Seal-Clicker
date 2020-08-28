@@ -20,22 +20,26 @@ class IntInformation:
 
     def seal_button(self):
         self.seals += self.click
-        seals_display.configure(text="You have: " + str(intinfo.seals) + " seals")
+        seals_display.configure(
+            text="You have: " + str(intinfo.seals) + " seals")
 
     def click_upgrade(self):
         if self.seals >= self.upgrades_cost[self.upgrades[0]]:
             self.click = round(self.click * 1.5)
             self.seals -= self.upgrades_cost[0]
             self.upgrades_cost[0] *= 3
-            seals_display.configure(text="You have: " + str(self.seals) + " seals")
-            click_upgrade_button.configure(text="Upgrade click \n" + str(self.upgrades_cost[0]) + " seals needed")
+            seals_display.configure(
+                text="You have: " + str(self.seals) + " seals")
+            click_upgrade_button.configure(
+                text="Upgrade click \n" + str(self.upgrades_cost[0]) + " seals needed")
 
     def collector_buy(self):
         if self.seals >= self.collectors_cost:
             self.collectors += 1
             self.seals -= self.collectors_cost
             self.collectors_cost = round(self.collectors_cost * 1.3)
-            buy_collector_button.configure(text="Buy Collector \n" + str(self.collectors_cost) + " seals needed")
+            buy_collector_button.configure(
+                text="Buy Collector \n" + str(self.collectors_cost) + " seals needed")
             if self.collectors == 1:
                 self.seals_update()
 
@@ -52,17 +56,20 @@ class IntInformation:
             self.seal_radars += 1
             self.seals -= self.seal_radars_cost
             self.seal_radars_cost = round(self.seal_radars_cost * 1.3)
-            buy_seal_radar_button.configure(text="Buy Seal Radar \n" + str(self.seal_radars_cost) + " seals needed")
+            buy_seal_radar_button.configure(
+                text="Buy Seal Radar \n" + str(self.seal_radars_cost) + " seals needed")
 
 
 seal_image = ImageTk.PhotoImage(Image.open("Resources/seal.png"))
 
 intinfo = IntInformation()
 
-seals_display = Label(root, text="You have: " + str(intinfo.seals) + " seals", font=("Comic Sans MS", 20))
+seals_display = Label(root, text="You have: " +
+                      str(intinfo.seals) + " seals", font=("Comic Sans MS", 20))
 seals_display.place(relx=0.05, rely=0.05)
 
-seal_button = Button(root, text="Seal", command=intinfo.seal_button, image=seal_image)
+seal_button = Button(
+    root, text="Seal", command=intinfo.seal_button, image=seal_image)
 seal_button.place(relheight=0.8, relwidth=0.4, relx=0.05, rely=0.15)
 
 click_upgrade_button = Button(root, text="Upgrade Click \n" + str(intinfo.upgrades_cost[0]) + " seals needed",
