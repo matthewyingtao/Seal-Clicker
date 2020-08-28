@@ -1,5 +1,4 @@
 from tkinter import *
-import pickle
 from PIL import ImageTk, Image
 
 root = Tk()

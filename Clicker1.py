@@ -1,5 +1,4 @@
 from tkinter import *
-import pickle
 import sys
 from PIL import ImageTk, Image
 
