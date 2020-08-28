@@ -23,11 +23,16 @@ hell_seal_image = ImageTk.PhotoImage(Image.open("Resources/hell_seal.png"))
 # root.iconbitmap(default="resources/bean.ico")
 
 # these arrays contain the hexadecimals used for color
-blue_theme = ["#36558B", "#F2EDD7", "#242B63", "#639EFF", "#5A90E8", "#5A8EE6", "#5282D2", "#5D80D5"]
-pink_theme = ["#8B3636", "#D7F2F0", "#632C24", "#FF6363", "#D25252", "#D76173", "#E85A63", "#D55D79"]
-green_theme = ["#214F4B", "#FFE6FF", "#242B63", "#2ACC95", "#15C78B", "#11AD7E", "#109E73", "#16AD8F"]
-dark_theme = ["#121212", "#E0E0E0", "#A0A0A0", "#393939", "#323232", "#292929", "#323232", "#202020"]
-burn_eyes_theme = ["#00ff00", "#ffff66", "#00ff00", "#ff00ff", "#ff00ff", "#00ff00", "#ff00ff", "#ff00ff"]
+blue_theme = ["#36558B", "#F2EDD7", "#242B63", "#639EFF",
+              "#5A90E8", "#5A8EE6", "#5282D2", "#5D80D5"]
+pink_theme = ["#8B3636", "#D7F2F0", "#632C24", "#FF6363",
+              "#D25252", "#D76173", "#E85A63", "#D55D79"]
+green_theme = ["#214F4B", "#FFE6FF", "#242B63",
+               "#2ACC95", "#15C78B", "#11AD7E", "#109E73", "#16AD8F"]
+dark_theme = ["#121212", "#E0E0E0", "#A0A0A0", "#393939",
+              "#323232", "#292929", "#323232", "#202020"]
+burn_eyes_theme = ["#00ff00", "#ffff66", "#00ff00",
+                   "#ff00ff", "#ff00ff", "#00ff00", "#ff00ff", "#ff00ff"]
 
 # these lists contain the buttons of a type, so that they can be easily configured to a theme
 unit_buttons = []
@@ -36,6 +41,8 @@ frames = []
 pages = []
 
 # this class is used to configure all objects to the theme color
+
+
 class Theme:
     def __init__(self, font, init_theme):
         self.font = font
@@ -90,9 +97,11 @@ class UniversalValues:
     def seal_button(self):
         self.seals += click.unit_yield
         if self.seals == 1:
-            seals_display.configure(text="You have: " + str(floor(self.seals)) + " seal")
+            seals_display.configure(
+                text="You have: " + str(floor(self.seals)) + " seal")
         else:
-            seals_display.configure(text="You have: " + str(floor(self.seals)) + " seals")
+            seals_display.configure(
+                text="You have: " + str(floor(self.seals)) + " seals")
 
     # this method updates the Seals Per Second label
     def per_second_display(self):
@@ -132,8 +141,10 @@ class Unit:
                                           font=(theme.font, 15), bg=theme.unit_button_color,
                                           activebackground=theme.unit_button_active_color,
                                           foreground=theme.text_color, activeforeground=theme.text_color)
-        self.buy_unit_button.place(relheight=0.18, relwidth=0.8, rely=self.y_button)
-        self.max_buy_unit_button.place(relheight=0.18, relwidth=0.2, relx=0.8, rely=self.y_button)
+        self.buy_unit_button.place(
+            relheight=0.18, relwidth=0.8, rely=self.y_button)
+        self.max_buy_unit_button.place(
+            relheight=0.18, relwidth=0.2, relx=0.8, rely=self.y_button)
         unit_buttons.append(self.buy_unit_button)
         unit_buttons.append(self.max_buy_unit_button)
         root.after(50, self.max_buy_display)
@@ -155,7 +166,8 @@ class Unit:
             self.unit_cost = self.unit_cost * 1.1
             self.buy_unit_button.configure(
                 text="Buy " + self.name + " (" + str(self.units) + ")\n" + str(floor(self.unit_cost)) + " seals needed")
-            seals_display.configure(text="You have: " + str(floor(uni_values.seals)) + " seals")
+            seals_display.configure(
+                text="You have: " + str(floor(uni_values.seals)) + " seals")
 
     # This method updates the max buy button's text to be the max amount the player can buy at a time as num + 'x',
     # it also passes the amount of units the player can buy as an argument to the 'max_buy_cost' function
@@ -172,7 +184,8 @@ class Unit:
             max_buy_units = max_buy_units + 1
         self.max_buy_unit_button.configure(text=str(max_buy_units) + "x")
         root.after(128, self.max_buy_display)
-        return max_buy_units # passes the max buy units as an argument, used for the "max_buy_cost" function
+        # passes the max buy units as an argument, used for the "max_buy_cost" function
+        return max_buy_units
 
     # This method is executed when the max buy button is pressed and gets deducts the cost from the seals amount, as
     # well as updating both the seal label and the buy unit button
@@ -186,7 +199,8 @@ class Unit:
         uni_values.seals = uni_values.seals - max_cost
         self.unit_cost = self.unit_cost * (1.1 ** max_buy_units)
         self.units += max_buy_units
-        seals_display.configure(text="You have: " + str(floor(uni_values.seals)) + " seals")
+        seals_display.configure(
+            text="You have: " + str(floor(uni_values.seals)) + " seals")
         self.buy_unit_button.configure(
             text="Buy " + self.name + " (" + str(self.units) + ")\n" + str(floor(self.unit_cost)) + " seals needed")
         return self.variable_2
@@ -194,7 +208,8 @@ class Unit:
     # This method is for the unit to update the seals amount by the units * yield
     def seals_update(self):
         uni_values.seals += self.units * self.unit_yield
-        seals_display.configure(text="You have: " + str(floor(uni_values.seals)) + " seals")
+        seals_display.configure(
+            text="You have: " + str(floor(uni_values.seals)) + " seals")
         root.after(uni_values.tick_rate, self.seals_update)
 
 
@@ -220,32 +235,38 @@ class Page:
     # This method places the page frame onto the canvas, and "hides" all other page frames, then disables the button
     def page_change(self):
         if self.page_number == 1:
-            page_1_frame.place(relheight=0.84, relwidth=0.5, relx=0.45, rely=0.08)
+            page_1_frame.place(relheight=0.84, relwidth=0.5,
+                               relx=0.45, rely=0.08)
             page_2_frame.place_forget()
             page_3_frame.place_forget()
             page_2.page_button.configure(state=NORMAL)
             page_3.page_button.configure(state=NORMAL)
             self.page_button.configure(state=DISABLED)
         elif self.page_number == 2:
-            page_2_frame.place(relheight=0.84, relwidth=0.5, relx=0.45, rely=0.08)
+            page_2_frame.place(relheight=0.84, relwidth=0.5,
+                               relx=0.45, rely=0.08)
             page_1_frame.place_forget()
             page_3_frame.place_forget()
             self.page_button.configure(state=DISABLED)
             page_3.page_button.configure(state=NORMAL)
             page_1.page_button.configure(state=NORMAL)
         elif self.page_number == 3:
-            page_3_frame.place(relheight=0.84, relwidth=0.5, relx=0.45, rely=0.08)
+            page_3_frame.place(relheight=0.84, relwidth=0.5,
+                               relx=0.45, rely=0.08)
             page_1_frame.place_forget()
             page_2_frame.place_forget()
             self.page_button.configure(state=DISABLED)
             page_1.page_button.configure(state=NORMAL)
             page_2.page_button.configure(state=NORMAL)
 
+
 # creates the theme object, arguments are: "font, initial theme"
 theme = Theme("Georgia", blue_theme)
 uni_values = UniversalValues()
 
-#this function is called when any of the theme buttons are pressed
+# this function is called when any of the theme buttons are pressed
+
+
 def theme_change(pressed_theme):
     theme.theme = pressed_theme
     theme.theme_change()
@@ -261,7 +282,8 @@ click = Unit("Click", 50, 1, 0, 1, page_1_frame, cursor_image)
 osu_player = Unit("Osu Player", 15, 0.1, 0.18, 1, page_1_frame, trash_image)
 radar = Unit("Radar", 100, 0.5, 0.36, 1, page_1_frame, radar_image)
 factory = Unit("Factory", 2000, 10, 0.54, 1, page_1_frame, factory_image)
-astolfo_bean = Unit("Astolfo Bean", 50000, 25, 0.72, 1, page_1_frame, bean_image)
+astolfo_bean = Unit("Astolfo Bean", 50000, 25, 0.72,
+                    1, page_1_frame, bean_image)
 
 page_2_frame = Frame()
 
@@ -269,8 +291,10 @@ page_2_frame = Frame()
 collector = Unit("Collector", 200000, 75, 0, 2, page_2_frame, collector_image)
 hell = Unit("Hell", 500000, 175, 0.18, 2, page_2_frame, fire_image)
 certainlyt = Unit("CertainlyT", 2, -500, 0.36, 2, page_2_frame, riot_image)
-beeg_seal = Unit("Beeg Seal", 1000000, 500, 0.54, 2, page_2_frame, plush_seal_image)
-hell_seal = Unit("Seal of Hell", 5000000, 2000, 0.72, 2, page_2_frame, hell_seal_image)
+beeg_seal = Unit("Beeg Seal", 1000000, 500, 0.54,
+                 2, page_2_frame, plush_seal_image)
+hell_seal = Unit("Seal of Hell", 5000000, 2000, 0.72,
+                 2, page_2_frame, hell_seal_image)
 
 page_3_frame = Frame(background=theme.background_color)
 
@@ -331,9 +355,10 @@ per_second_display = Label(root, text="0 SPS", font=(theme.font, 20), bg=theme.b
 per_second_display.place(relx=0.05, rely=0.93)
 
 # Adds the labels and frames to their respective lists
-labels.extend([settings_label, tick_rate_label, themes_label, seals_display, per_second_display])
+labels.extend([settings_label, tick_rate_label, themes_label,
+               seals_display, per_second_display])
 frames.extend([page_1_frame, page_2_frame, page_3_frame])
 
-#This sets the initial size of the window
+# This sets the initial size of the window
 root.geometry("800x600")
 root.mainloop()
